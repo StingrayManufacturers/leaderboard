@@ -8,8 +8,9 @@
     :root{
       /* Layout tokens (scalable with clamp for responsiveness) */
       --axis-width: 84px;
-      --logo-size: clamp(64px, 8vw, 116px);
-      --header-height: calc(var(--logo-size) + 72px); /* reduced */
+      --logo-size: clamp(64px, 8vw, 110px);
+      /* ↓↓ reduced header height */
+      --header-height: calc(var(--logo-size) + 60px);
       --cell-min-h: 96px;
       --card-bg: #ffffff;
       --text: #0f172a;
@@ -50,7 +51,6 @@
     }
 
     .h1{ font-size: clamp(22px, 3vw, 34px); }
-
     .page{
       padding: clamp(10px, 2vw, 24px);
       max-width: 100%;
@@ -73,7 +73,7 @@
       top: var(--mypx);
       transform: translate(-50%, -50%);
       width:  min(60vw, 900px);
-      height: min(40vh, 420px);
+      height: min(40vh, 360px);
       border-radius: 50%;
       background: radial-gradient(ellipse at center,
         rgba(255,255,255,0.26) 0%,
@@ -89,14 +89,14 @@
     .kv-banner-inner{
       position:relative;
       z-index:1;
-      width: 100%;
+      max-width:1600px;
       margin:0 auto;
-      padding: clamp(16px, 4vh, 32px) clamp(12px, 4vw, 32px);
+      /* ↓↓ slightly less padding = shorter header */
+      padding: clamp(8px, 1.5vw, 16px) clamp(12px, 2vw, 24px);
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
-      min-height: clamp(120px, 24vh, 220px);
     }
     .kv-banner h1{
       margin:0;
@@ -134,7 +134,8 @@
       align-items:center;
       column-gap: var(--gap);
       grid-template-columns: minmax(48px, var(--axis-width)) repeat(6, minmax(90px, 1fr));
-      padding: 8px 12px 14px 12px; /* reduced top/bottom padding */
+      padding:10px 12px;
+      padding-bottom: 16px;
       height: var(--header-height);
       background:#ffffff;
       border-bottom:none;
@@ -190,7 +191,6 @@
       position:relative;
       z-index:0;
       box-shadow:0 4px 14px rgb(2 6 23 / 18%);
-      /* alive float animation for core value rings */
       animation: floatLogo 4.2s ease-in-out infinite;
       will-change: transform;
     }
@@ -201,7 +201,6 @@
     .col-think     .logo { box-shadow: 0 0 0 3px var(--ring-think),     0 4px 14px rgb(2 6 23 / 18%); }
     .col-delight   .logo { box-shadow: 0 0 0 3px var(--ring-delight),   0 4px 14px rgb(2 6 23 / 18%); }
 
-    /* subtle core ring float */
     @keyframes floatLogo {
       0%   { transform: translateY(0); }
       50%  { transform: translateY(-4px); }
@@ -216,7 +215,7 @@
       grid-template-rows: repeat(5, minmax(var(--cell-min-h), 1fr));
       column-gap: var(--gap);
       row-gap:0;
-      padding:16px 12px 12px 12px; /* top padding = breathing room under core rings */
+      padding:12px 12px 12px 12px;
       min-height: calc(5 * var(--cell-min-h));
       background:#ffffff;
     }
@@ -235,7 +234,6 @@
       padding: 4px;
     }
 
-    /* Person cell */
     .person{
       display:flex;
       flex-direction:column;
@@ -254,27 +252,23 @@
       position:relative;
       z-index:0;
       box-shadow:0 1px 3px rgba(2,6,23,.18);
-      /* constant hover / "alive" animation */
       --float-distance: 6px;
       animation: floatRing 3.6s ease-in-out infinite;
       will-change: transform;
     }
 
-    /* Stagger + smaller float on rank 1 so it never touches the core value rings */
     .cell[data-rank="1"] .avatar { --float-distance: 3px; animation-delay: 0s; }
     .cell[data-rank="2"] .avatar { animation-delay: .3s; }
     .cell[data-rank="3"] .avatar { animation-delay: .6s; }
     .cell[data-rank="4"] .avatar { animation-delay: .9s; }
     .cell[data-rank="5"] .avatar { animation-delay: 1.2s; }
 
-    /* Float animation for rings */
     @keyframes floatRing {
       0%   { transform: translateY(0) scale(1); }
       50%  { transform: translateY(calc(-1 * var(--float-distance))) scale(1.02); }
       100% { transform: translateY(0) scale(1); }
     }
 
-    /* Colored rings per core (avatars) */
     .c-obsession  .avatar{ box-shadow: 0 0 0 3px var(--ring-obsession), 0 0 14px rgba(37,99,235,.45); }
     .c-pride      .avatar{ box-shadow: 0 0 0 3px var(--ring-pride),     0 0 14px rgba(225,29,72,.45); }
     .c-simplicity .avatar{ box-shadow: 0 0 0 3px var(--ring-simplicity), 0 0 14px rgba(249,115,22,.45); }
@@ -291,7 +285,6 @@
       text-overflow: ellipsis;
     }
 
-    /* Tooltips */
     .logo-wrap[data-desc]::after,
     .logo-wrap[data-desc]::before{
       opacity:0;
@@ -333,26 +326,19 @@
       pointer-events:none;
     }
 
-    /* Tooltip color match */
     .logo-wrap.col-obsession[data-desc]::after  { background: var(--ring-obsession); }
     .logo-wrap.col-obsession[data-desc]::before { border-top-color: var(--ring-obsession); }
-
     .logo-wrap.col-pride[data-desc]::after      { background: var(--ring-pride); }
     .logo-wrap.col-pride[data-desc]::before     { border-top-color: var(--ring-pride); }
-
     .logo-wrap.col-simplicity[data-desc]::after { background: var(--ring-simplicity); }
     .logo-wrap.col-simplicity[data-desc]::before{ border-top-color: var(--ring-simplicity); }
-
     .logo-wrap.col-speed[data-desc]::after      { background: var(--ring-speed); }
     .logo-wrap.col-speed[data-desc]::before     { border-top-color: var(--ring-speed); }
-
     .logo-wrap.col-think[data-desc]::after      { background: var(--ring-think); }
     .logo-wrap.col-think[data-desc]::before     { border-top-color: var(--ring-think); }
-
     .logo-wrap.col-delight[data-desc]::after    { background: var(--ring-delight); }
     .logo-wrap.col-delight[data-desc]::before   { border-top-color: var(--ring-delight); }
 
-    /* Reveal wrapper */
     .reveal-wrapper{
       opacity:0;
       transform:translateY(16px);
@@ -365,7 +351,7 @@
       pointer-events:auto;
     }
 
-    /* Responsive tuning */
+    /* Responsive tuning (unchanged except for smaller paddings already set) */
     @media (max-width: 1200px){
       :root{
         --axis-width: 78px;
@@ -433,15 +419,11 @@
       .name{
         font-size: 11px;
       }
-      .kv-banner-inner{
-        padding: 16px 12px;
-        min-height: 140px;
-      }
     }
 
     @media (max-width: 420px){
       .kv-banner-inner{
-        padding-inline: 10px;
+        padding-inline: 12px;
       }
       .logo-title-top{
         font-size: 10px;
@@ -764,16 +746,12 @@
     };
 
     async function fetchItems(){
-      const url = CONFIG.siteRelativeUrl
-        + "/_api/web/lists/GetByTitle('" + CONFIG.listTitle.replace(/'/g, "''") + "')/items"
-        + "?$select=Id," + CONFIG.fields.core + "," + CONFIG.fields.rank + "," + CONFIG.fields.name + "," + CONFIG.fields.personLookup + "/Title," + CONFIG.fields.personLookup + "/EMail"
-        + "&$expand=" + CONFIG.fields.personLookup
-        + "&$orderby=" + CONFIG.fields.rank + " asc, Id asc";
-
+      const url = `${CONFIG.siteRelativeUrl}/_api/web/lists/GetByTitle('${encodeURIComponent(CONFIG.listTitle).replace(/'/g, "''")}')/items`
+        + `?$select=Id,${CONFIG.fields.core},${CONFIG.fields.rank},${CONFIG.fields.name},${CONFIG.fields.personLookup}/Title,${CONFIG.fields.personLookup}/EMail`
+        + `&$expand=${CONFIG.fields.personLookup}`
+        + `&$orderby=${CONFIG.fields.rank} asc, Id asc`;
       const res = await fetch(url, { headers: { 'Accept': 'application/json;odata=nometadata' } });
-      if(!res.ok){
-        throw new Error('SharePoint REST failed: ' + res.status + ' ' + res.statusText);
-      }
+      if(!res.ok){ throw new Error(`SharePoint REST failed: ${res.status} ${res.statusText}`); }
       return res.json();
     }
 
@@ -788,13 +766,11 @@
       const rank = item[CONFIG.fields.rank];
       if(!CONFIG.coreValues.includes(core)) return;
       if(!(rank >= 1 && rank <= 5)) return;
-      const selector = '.cell[data-core="' + core + '"][data-rank="' + rank + '"]';
-      const cell = document.querySelector(selector);
+      const cell = document.querySelector(`.cell[data-core="${core}"][data-rank="${rank}"]`);
       if(!cell) return;
       const nameEl = cell.querySelector('.name');
       const name = resolveName(item);
       if(name){ nameEl.textContent = name; }
-      /* Intentionally DO NOT change avatar src – LEGO stays */
     }
 
     (async function init(){
