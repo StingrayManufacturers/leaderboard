@@ -9,7 +9,7 @@
       /* Layout tokens (scalable with clamp for responsiveness) */
       --axis-width: 84px;
       --logo-size: clamp(64px, 8vw, 116px);
-      --header-height: calc(var(--logo-size) + 106px);
+      --header-height: calc(var(--logo-size) + 72px); /* reduced */
       --cell-min-h: 96px;
       --card-bg: #ffffff;
       --text: #0f172a;
@@ -134,8 +134,7 @@
       align-items:center;
       column-gap: var(--gap);
       grid-template-columns: minmax(48px, var(--axis-width)) repeat(6, minmax(90px, 1fr));
-      padding:12px;
-      padding-bottom: 20px; /* extra space below core rings */
+      padding: 8px 12px 14px 12px; /* reduced top/bottom padding */
       height: var(--header-height);
       background:#ffffff;
       border-bottom:none;
@@ -168,7 +167,7 @@
     .logo-title-top{
       font-weight:800;
       letter-spacing:.02em;
-      margin-bottom:10px;
+      margin-bottom:8px;
       line-height:1.15;
       font-size: clamp(12px, 1.4vw, 16px);
     }
@@ -388,7 +387,7 @@
         grid-template-columns: minmax(44px, var(--axis-width)) repeat(6, minmax(80px, 1fr));
       }
       .logo-title-top{
-        margin-bottom: 8px;
+        margin-bottom: 6px;
       }
       .page{
         padding-inline: 12px;
